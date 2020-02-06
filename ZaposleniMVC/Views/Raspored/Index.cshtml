@@ -1,0 +1,184 @@
+﻿@model ZaposleniMVC.Models.Odgovor
+
+
+
+<header>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a asp-area="" asp-controller="Zaposleni" asp-action="IndexAdministrator" class="navbar-brand"></a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a asp-area="" asp-controller="Zaposleni" asp-action="IndexAdministrator">Zaposleni</a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="Raspored" asp-action="Index">Raspored</a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="Kompanija" asp-action="Index">Kompanija</a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="Zaposleni" asp-action="Logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+
+
+<h3>Zaposleni: </h3>
+<hr />
+<form asp-controller="Raspored" asp-action="Search">
+    <div class="container">
+        <p>
+            <br />
+            <select name="Zaposlen" style="border-color:blue">
+
+                @foreach (var i in Model.Zaposleni)
+                {
+                    <option value="@i.Ime@i.Prezime">@Html.DisplayFor(m => i.Ime) @Html.DisplayFor(m => i.Prezime)</option>
+                }
+
+            </select>
+            <input id="btnSearch" type="submit" value="Sortiraj" class="btn btn-sm btn-success" style="position:absolute; left:310px " />
+            <a asp-controller="VisualizeData" asp-action="ColumnChart" class="btn btn-sm btn-primary" style="position:absolute; left:380px">Statistika</a>
+        </p>
+
+    </div>
+</form>
+
+
+@if (!(Model.Rasporedi is null) && Model.Rasporedi.Count() > 0)
+{
+    <div class="table-bordered">
+        <table class="table">
+            <tr>
+                @{
+                    var parms = 0;
+                }
+                <th>Datum</th>
+                <th>Smena</th>
+                <th>Obavestenja</th>
+                <th>Zaposleni</th>
+                <th>Vreme prijave</th>
+                <th>Prijavljen</th>
+                @foreach (var i in Model.Rasporedi)
+                {
+                <tr>
+                    <td>
+                        <h5>@Html.Encode(i.Datum.ToString("dd-MM-yyyy"))</h5>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => i.Smena)
+                        @if (i.Smena == "")
+                        {
+                            parms += 1;
+                        }
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => i.Obavestenje)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => i.Zaposleni.Ime) @Html.DisplayFor(m => i.Zaposleni.Prezime)
+                    </td>
+                    <td>
+
+                        @if (i.VremePrijave.Year == 1389 && i.VremePrijave.Month == 06 && i.VremePrijave.Day == 28)
+                        {
+                            @Html.Encode("");
+                        }
+                        else
+                        {
+                            @Html.Encode(i.VremePrijave.ToString("HH:mm tt"));
+
+                        }
+                    </td>
+                    <td>
+                        @if (i.Datum.Date <= DateTime.Now.Date)
+                        {
+                            if (i.Kasni == false && (i.VremePrijave.Year == 1389 && i.VremePrijave.Month == 06 && i.VremePrijave.Day == 28))
+                            {
+                                <h5><b>@Html.Encode("Nije prijavljen")</b></h5>
+                            }
+                            else if (i.Kasni == false && !(i.VremePrijave.Year == 1389 && i.VremePrijave.Month == 06 && i.VremePrijave.Day == 28))
+                            {
+                                <h5 style="color:forestgreen"><b>@Html.Encode("Na vreme")</b></h5>
+
+                            }
+                            else
+                            {
+                                <h5 style="color:red"><b>@Html.Encode("Kasni")</b></h5>
+                            }
+                        }
+                        else
+                        {
+                            <h5 style="color:blue"><b>Datum!</b> </h5>
+                        }
+
+
+                    </td>
+                    <td>
+                        @{
+                            var Parms = new Dictionary<string, string>
+                                                                {
+                                                                        { "datum",i.Datum.ToString() },
+                                                                            {"zaposleni",(i.Zaposleni.Ime + i.Zaposleni.Prezime) }
+                                                                };
+                        }
+
+
+                        @if (i.Datum.Date < DateTime.Now.Date)
+                        {
+                            <a asp-action="Delete" asp-controller="Raspored" asp-all-route-data="Parms" class="btn btn-sm btn-danger">Obrisi</a>
+                        }
+                        else
+                        {
+                            <a asp-action="Edit" asp-controller="Raspored" asp-all-route-data="Parms" class="btn btn-sm btn-default">Izmeni</a>
+
+                            <a asp-action="Delete" asp-controller="Raspored" asp-all-route-data="Parms" class="btn btn-sm btn-danger">Obrisi</a>
+
+                        }
+                    </td>
+                </tr>
+            }
+
+
+            </table>
+
+        </div>
+        @if (parms > 0)
+        {
+            <div class="container">
+                <p>
+                    <h5 style="color:red">@Html.Encode("Imate " + parms + " zahteva za kreiranjem rasporeda")</h5>
+                </p>
+            </div>
+        }
+        
+    }
+    else
+    {
+        <h3>Nema rasporeda jos</h3>
+    }
+<div class="container">
+    <p>
+        <br />
+        <a asp-action="Create" asp-controller="Raspored" class="btn btn-sm btn-primary"> Kreiraj zaposlenog</a>
+        <a asp-action="Index" asp-controller="Raspored" class="btn btn-sm btn-success" style="position:absolute; right:150px"> Resetuj</a>
+
+    </p>
+
+</div>
+
+

@@ -1,0 +1,156 @@
+﻿@model ZaposleniMVC.Models.Odgovor
+@{
+    ViewData["Title"] = "Create";
+}
+
+<header>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a asp-area="" asp-controller="Zaposleni" asp-action="IndexAdministrator" class="navbar-brand"></a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a asp-area="" asp-controller="Zaposleni" asp-action="IndexAdministrator">Zaposleni</a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="Raspored" asp-action="Index">Raspored</a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="Kompanija" asp-action="Index">Kompanija</a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="Zaposleni" asp-action="Logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+
+
+<form asp-action="Create" method="post" style="margin-top: 50px">
+    <div class="container">
+
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-1">
+                    <label asp-for="Zap.Ime"></label>
+                </div>
+                <div class="col-sm-4">
+                    <input id="ime" asp-for="Zap.Ime" class="form-control" />
+                </div>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-1">
+                    <label asp-for="Zap.Prezime"></label>
+                </div>
+                <div class="col-sm-4">
+                    <input id="prezime" asp-for="Zap.Prezime" class="form-control" />
+                </div>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-1">
+                    <label asp-for="Zap.Adresa"></label>
+                </div>
+                <div class="col-sm-4">
+                    <input id="adresa" asp-for="Zap.Adresa" class="form-control" />
+
+                </div>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-1">
+                    <label asp-for="Zap.BrojTelefona">Broj telefona</label>
+                </div>
+                <div class="col-sm-4">
+                    <input id="broj" asp-for="Zap.BrojTelefona" class="form-control" />
+
+                </div>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-1">
+                    <label asp-for="Zap.Email"></label>
+                </div>
+                <div class="col-sm-4">
+                    <input id="email" asp-for="Zap.Email" class="form-control" />
+
+                </div>
+
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <input type="submit" value="Kreiraj" class="btn btn-sm btn-primary" />
+            <h5 id="greska" style="color:darkred"></h5>
+
+            <br />
+
+        </div>
+    </div>
+
+</form>
+
+@if (Model is null)
+{
+    <script>
+        document.getElementById('greska').innerText = "Postoji vec zaposleni sa datim emailom!";
+    </script>
+}
+
+@if (Model.Poruka == "Greska")
+{
+    foreach (var i in Model.Validacija)
+    {
+        if (i.Equals("ime"))
+        {
+            <script>
+                document.getElementById("ime").style.borderColor = "red";
+                document.getElementById("ime").style.borderWidth = '1.5px';
+            </script>
+        }
+        else if (i.Equals("prezime"))
+        {
+            <script>
+                document.getElementById("prezime").style.borderColor = "red";
+                document.getElementById("prezime").style.borderWidth = '1.5px';
+            </script>
+        }
+        else if (i.Equals("email"))
+        {
+            <script>
+                document.getElementById("email").style.borderColor = "red";
+                document.getElementById("email").style.borderWidth = '1.5px';
+            </script>
+        }
+        else if (i.Equals("adresa"))
+        {
+            <script>
+                document.getElementById("adresa").style.borderColor = "red";
+                document.getElementById("adresa").style.borderWidth = '1.5px';
+            </script>
+        }
+    }
+}
+
+

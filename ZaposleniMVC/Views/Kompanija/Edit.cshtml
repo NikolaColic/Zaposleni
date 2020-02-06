@@ -1,0 +1,137 @@
+﻿@model ZaposleniMVC.Models.Odgovor
+@{
+    ViewData["Title"] = "Kompanija";
+}
+
+<header>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a asp-area="" asp-controller="Zaposleni" asp-action="IndexAdministrator" class="navbar-brand"></a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a asp-area="" asp-controller="Zaposleni" asp-action="IndexAdministrator">Zaposleni</a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="Raspored" asp-action="Index">Raspored</a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="Kompanija" asp-action="Index">Kompanija</a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="Zaposleni" asp-action="Logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<form asp-controller="Kompanija" asp-action="Edit" method="post" style="margin-top: 50px">
+    <div class="container">
+
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-1">
+                    <label asp-for="Kompanija.Naziv"></label>
+                </div>
+                <div class="col-sm-4">
+                    <input id="naziv" asp-for="Kompanija.Naziv" class="form-control" />
+                </div>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-1">
+                    <label asp-for="Kompanija.Adresa"></label>
+                </div>
+                <div class="col-sm-4">
+                    <input id="adresa" asp-for="Kompanija.Adresa" class="form-control" />
+                </div>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-1">
+                    <label asp-for="Kompanija.MaticniBroj"></label>
+                </div>
+                <div class="col-sm-4">
+                    <input id="maticni" asp-for="Kompanija.MaticniBroj" class="form-control" />
+                </div>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-1">
+                    <label asp-for="Kompanija.Delatnost"></label>
+                </div>
+                <div class="col-sm-4">
+                    <input id="delatnost" asp-for="Kompanija.Delatnost" class="form-control" />
+
+                </div>
+
+            </div>
+        </div>
+
+        <br />
+        <div class="form-group">
+            <input type="submit" value="Kreiraj" class="btn btn-sm btn-primary" />
+
+            <h6 id="poruka"></h6>
+
+
+
+            <br />
+
+        </div>
+    </div>
+
+</form>
+
+
+@if (Model.Poruka == "Greska")
+{
+    foreach (var i in Model.Validacija)
+    {
+        if (i.Equals("naziv"))
+        {
+            <script>
+                document.getElementById("naziv").style.borderColor = "red";
+                document.getElementById("naziv").style.borderWidth = '1.5px';
+            </script>
+        }
+        else if (i.Equals("adresa"))
+        {
+            <script>
+                document.getElementById("adresa").style.borderColor = "red";
+                document.getElementById("adresa").style.borderWidth = '1.5px';
+            </script>
+        }
+        else if (i.Equals("delatnost"))
+        {
+            <script>
+                document.getElementById("delatnost").style.borderColor = "red";
+                document.getElementById("delatnost").style.borderWidth = '1.5px';
+            </script>
+        }
+        else if (i.Equals("maticni"))
+        {
+            <script>
+                document.getElementById("maticni").style.borderColor = "red";
+                document.getElementById("maticni").style.borderWidth = '1.5px';
+            </script>
+        }
+    }
+}

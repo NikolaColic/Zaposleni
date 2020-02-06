@@ -1,0 +1,93 @@
+﻿@model ZaposleniMVC.Models.Administrator;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ZaposleniMVC</title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+</head>
+<body>
+
+    <br />
+    <h2>Prijavi se:</h2>
+    <hr />
+    <form asp-controller="Zaposleni" asp-action="Index" method="post">
+        <div class="container">
+            
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-1">
+                        <label asp-for="Email"></label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input id="email"  asp-for="Email" class="form-control" />
+                    </div>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-1">
+                        <label asp-for="Sifra"></label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input id="sifra" asp-for="Sifra" type="password" class="form-control" />
+                    </div>
+                    <span asp-validation-for="Sifra" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-1">
+
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="checkbox" name="Administrator" value="DA"> Administrator
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" style="margin-left:100px" value="Login" class="btn btn-lg btn-primary" />
+                <h6 id="greska"></h6>
+                <br />
+
+            </div>
+        </div>
+
+    </form>
+
+    
+    <footer class="border-top footer text-muted"></footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+</body>
+</html>
+
+@if (Model is null)
+{
+    <script>
+       
+        document.getElementById("sifra").style.borderColor = "red";
+        document.getElementById("email").style.borderColor = "red";
+        document.getElementById("sifra").style.borderWidth = '1.5px';
+        document.getElementById("email").style.borderWidth = '1.5px';
+    </script>
+}
+
+

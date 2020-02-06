@@ -1,0 +1,91 @@
+﻿@model ZaposleniMVC.Models.Odgovor
+<table class="table">
+    <tr>
+
+        <th>Datum</th>
+        <th>Smena</th>
+        <th>Radno vreme</th>
+        <th>Obavestenja</th>
+        <th>Prijava</th>
+        @foreach (var i in Model.Rasporedi)
+        {
+        <tr id="provera">
+            <td>
+                @Html.Encode(i.Datum.ToString("dd-MM-yyyy"))
+            </td>
+            <td>
+                @Html.DisplayFor(m => i.Smena)
+            </td>
+            <td>
+
+                @{
+                    var par = "";
+                    if (i.Smena == "Prva")
+                    {
+                        par = "8-15h";
+                    }
+                    else if (i.Smena == "Druga")
+                    {
+                        par = "15-22h";
+                    }
+                    else
+                    {
+                        par = "Slobodan dan";
+                    }
+                }
+                @Html.Encode(par + "")
+            </td>
+            <td>
+                @Html.DisplayFor(m => i.Obavestenje)
+            </td>
+
+            <td>
+
+                @{
+                    var Parms = new Dictionary<string, string>
+                                                                                                                                            {
+                                                                                                                                                    { "datum",i.Datum.ToString() },
+                                                                                                                                                        {"zaposleni",(i.Zaposleni.Ime + i.Zaposleni.Prezime) }
+                                                                                                                                            };
+                }
+
+                @if ((i.Datum.Year == DateTime.Now.Year && i.Datum.Month == DateTime.Now.Month
+         && i.Datum.Day == DateTime.Now.Day))
+                {
+                    if (i.Kasni == false && (i.VremePrijave.Year == 1389 && i.VremePrijave.Month == 06 && i.VremePrijave.Day == 28))
+                    {
+                        <a asp-action="Prijava" asp-controller="Radnik" asp-all-route-data="Parms" class="btn btn-sm btn-success">Prijava</a>
+                    }
+                    else if (i.Kasni == false && !(i.VremePrijave.Year == 1389 && i.VremePrijave.Month == 06 && i.VremePrijave.Day == 28))
+                    {
+                        <h5 style="color:green"><b>@Html.Encode("Prijavljen")</b></h5>
+                    }
+                    else
+                    {
+                        <h5 style="color:red"><b>@Html.Encode("Kasni")</b></h5>
+                    }
+
+
+
+                }
+                else
+                {
+                    if (i.Kasni == false && !(i.VremePrijave.Year == 1389 && i.VremePrijave.Month == 06 && i.VremePrijave.Day == 28))
+                    {
+                        <h5 style="color:green"><b>@Html.Encode("Prijavljen")</b></h5>
+                    }
+                    else if (i.Kasni == true && !(i.VremePrijave.Year == 1389 && i.VremePrijave.Month == 06 && i.VremePrijave.Day == 28))
+                    {
+                        <h5 style="color:red"><b>@Html.Encode("Kasni")</b></h5>
+                    }
+                    else
+                    {
+                        <h5 style="color:blue"><b>@Html.Encode("Datum/Nije prijavljen")</b></h5>
+                    }
+
+                }
+            </td>
+        </tr>
+
+    }
+    </table>

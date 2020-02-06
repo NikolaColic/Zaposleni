@@ -1,0 +1,127 @@
+﻿@model ZaposleniMVC.Models.Odgovor
+
+
+
+    <header>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a asp-area="" asp-controller="Zaposleni" asp-action="IndexAdministrator" class="navbar-brand"></a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a asp-area="" asp-controller="Radnik" asp-action="Index">Raspored</a>
+                        </li>
+                        <li>
+                            <a asp-area="" asp-controller="Radnik" asp-action="Profil">Profil</a>
+                        </li>
+                        <li>
+                            <a asp-area="" asp-controller="Kompanija" asp-action="Obavestenja">Obavestenja</a>
+                        </li>
+                        <li>
+                            <a asp-area="" asp-controller="Zaposleni" asp-action="Logout">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <form asp-action="Profil" method="post" style="margin-top: 50px">
+        <div class="container">
+
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-1">
+                        <label asp-for="Zap.Ime"></label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input asp-for="Zap.Ime" class="form-control" />
+                        <input asp-for="Zap.OsobaID" hidden />
+                    </div>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-1">
+                        <label asp-for="Zap.Prezime"></label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input asp-for="Zap.Prezime" class="form-control" />
+                    </div>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-1">
+                        <label asp-for="Zap.Adresa"></label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input asp-for="Zap.Adresa" class="form-control" />
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-1">
+                        <label asp-for="Zap.BrojTelefona">Broj telefona</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input asp-for="Zap.BrojTelefona" class="form-control" />
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-1">
+                        <label asp-for="Zap.Email"></label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input asp-for="Zap.Email" class="form-control" />
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-1">
+                        <label asp-for="Zap.Sifra"></label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input asp-for="Zap.Sifra" class="form-control" />
+
+                    </div>
+
+                </div>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Izmeni" class="btn  btn-primary" />
+                @if(Model.Poruka == "Ok")
+                {
+                    <h6>Uspesna izmena!</h6>
+                }else if (Model.Poruka == "Greska")
+                {
+                    <h6>Greska</h6>
+                }
+
+                <br />
+
+            </div>
+        </div>
+
+    </form>

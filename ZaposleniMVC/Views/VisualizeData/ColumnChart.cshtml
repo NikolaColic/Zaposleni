@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Result Visualization</title>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json",
+                url: '@Url.Action("PodaciZaposleni", "VisualizeData")',
+                success: function (result) {
+                    google.charts.load('current', {
+                        'packages': ['corechart']
+                    });
+                    google.charts.setOnLoadCallback(function () {
+                        drawChart(result);
+                    });
+                }
+            });
+        });
+          $(document).ready(function () {
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json",
+                url: '@Url.Action("PodaciZaposleni2", "VisualizeData")',
+                success: function (result) {
+                    google.charts.load('current', {
+                        'packages': ['corechart']
+                    });
+                    google.charts.setOnLoadCallback(function () {
+                        drawChart2(result);
+                    });
+                }
+            });
+        });
+        $(document).ready(function () {
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json",
+                url: '@Url.Action("PodaciZaposleni3", "VisualizeData")',
+                success: function (result) {
+                    google.charts.load('current', {
+                        'packages': ['corechart']
+                    });
+                    google.charts.setOnLoadCallback(function () {
+                        drawChart3(result);
+                    });
+                }
+            });
+        });
+        function drawChart(result) {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Name');
+            data.addColumn('number', 'Prva smena');
+            var dataArray = [];
+
+            $.each(result, function (i, obj) {
+                dataArray.push([obj.imePrezime, obj.brojSmena]);
+            });
+            data.addRows(dataArray);
+
+            var columnChartOptions = {
+                title: "Prva smena za posledjih mesec dana",
+                width: 1000,
+                height: 400,
+                bar: { groupWidth: "20%" },
+            };
+
+            var columnChart = new google.visualization.ColumnChart(document
+                .getElementById('columnchart_div'));
+
+            columnChart.draw(data, columnChartOptions);
+        }
+        function drawChart2(result) {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Name');
+            data.addColumn('number', 'Druga smena');
+            var dataArray = [];
+
+            $.each(result, function (i, obj) {
+                dataArray.push([obj.imePrezime, obj.brojSmena]);
+            });
+            data.addRows(dataArray);
+
+            var columnChartOptions = {
+                title: "Druga smena za posledjih mesec dana",
+                width: 1000,
+                height: 400,
+                bar: { groupWidth: "20%" },
+            };
+
+            var columnChart = new google.visualization.ColumnChart(document
+                .getElementById('columnchart_div2'));
+
+            columnChart.draw(data, columnChartOptions);
+        }
+        function drawChart3(result) {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Name');
+            data.addColumn('number', 'Druga smena');
+            var dataArray = [];
+
+            $.each(result, function (i, obj) {
+                dataArray.push([obj.imePrezime, obj.brojSmena]);
+            });
+            data.addRows(dataArray);
+
+            var columnChartOptions = {
+                title: "Slobodni dani",
+                width: 1000,
+                height: 400,
+                bar: { groupWidth: "20%" },
+            };
+
+            var columnChart = new google.visualization.ColumnChart(document
+                .getElementById('columnchart_div2'));
+
+            columnChart.draw(data, columnChartOptions);
+        }
+    </script>
+</head>
+<body>
+    <div class="jumbotron">
+        <h2>Prva smena:</h2>
+        <div id="columnchart_div"></div>
+    </div>
+    <div class="jumbotron">
+        <h2>Druga smena:</h2>
+        <div id="columnchart_div2"></div>
+    </div>
+    <div class="jumbotron">
+        <h2>Slobodni dani:</h2>
+        <div id="columnchart_div3"></div>
+    </div>
+
+</body>
+</html>
