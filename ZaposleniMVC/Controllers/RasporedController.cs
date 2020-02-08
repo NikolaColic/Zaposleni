@@ -81,7 +81,7 @@ namespace ZaposleniMVC.Controllers
             Odgovor o = new Odgovor();
             o.Zaposleni = _db.Zaposleni.ToList();
             var rasporedi = _db.Raspored.Where((r) => (r.Zaposleni.Ime+r.Zaposleni.Prezime).Equals(zaposlen));
-            rasporedi =rasporedi.OrderByDescending(r => r.Datum);
+           
             if ((rasporedi is null) || rasporedi.Count() == 0 )
             {
                 o.Rasporedi = _db.Raspored.ToList();

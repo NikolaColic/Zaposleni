@@ -1,7 +1,6 @@
 ﻿@model IEnumerable<ZaposleniMVC.Models.Zaposleni>
 
 
-
 <header>
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -35,66 +34,66 @@
 </header>
 
 
-
-
 <h3>Zaposleni: </h3>
 <hr />
 <form asp-controller="Zaposleni" asp-action="Sort">
     <div class="container">
         <p>
             <br />
-            <select name="Sort" id="selectID" class="checkbox-inline">
+            <select name="sort" id="sortID" class="checkbox-inline">
                 <option value="Ime">Ime</option>
                 <option value="Prezime">Prezime</option>
                 <option value="Email">Email</option>
 
-
             </select>
+            <input id="btnSortiraj" type="submit" value="Sortiraj" class="btn btn-sm btn-primary" style="background-color:blue;  position:absolute; left:300px" />
 
-            <input type="submit" value="Sortiraj" class="btn btn-sm btn-primary" style="background-color:blue;  position:absolute; left:300px" />
         </p>
-
     </div>
 </form>
 
+
 @if (Model.Count() > 0)
 {
-    <div class="table-bordered">
-        <table class="table">
-            <tr>
-                <th>@Html.DisplayNameFor(m => m.Ime)</th>
-                <th>@Html.DisplayNameFor(m => m.Prezime)</th>
-                <th>@Html.DisplayNameFor(m => m.Email)</th>
-                <th>Operacije</th>
-                @foreach (var i in Model)
-                {
+    <div id="dodaj">
+        <div class="table-bordered">
+            <table class="table">
                 <tr>
-                    <td>
-                        @Html.DisplayFor(m => i.Ime)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(m => i.Prezime)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(m => i.Email)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@i.OsobaID" class="btn btn-sm btn-success">Izmeni</a>
+                    <th>@Html.DisplayNameFor(m => m.Ime)</th>
+                    <th>@Html.DisplayNameFor(m => m.Prezime)</th>
+                    <th>@Html.DisplayNameFor(m => m.Email)</th>
+                    <th>Operacije</th>
+                    @foreach (var i in Model)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m => i.Ime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => i.Prezime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => i.Email)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@i.OsobaID" class="btn btn-sm btn-success">Izmeni</a>
 
-                        <a asp-action="Delete" asp-route-id="@i.OsobaID" class="btn btn-sm btn-danger">Obrisi</a>
+                            <a asp-action="Delete" asp-route-id="@i.OsobaID" class="btn btn-sm btn-danger">Obrisi</a>
 
-                    </td>
-                </tr>
-            }
+                            <a asp-action="Kreiraj" asp-route-id="@i.OsobaID" class="btn btn-sm btn-default">Kreiraj</a>
+                        </td>
+                    </tr>
+                }
 
 
-            </table>
+                </table>
 
+            </div>
         </div>
     }
     else
     {
-        <h3>Nema knjiga jos!</h3>
+        <h3>Nema zaposlenih jos!</h3>
     }
 <div class="container">
     <p>
@@ -105,5 +104,5 @@
 
 </div>
 
-
-
+<input type="button" value="mail" onclick="posaljiMail()" />
+<p id="nik"></p>

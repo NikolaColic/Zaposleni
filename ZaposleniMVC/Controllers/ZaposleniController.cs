@@ -269,6 +269,23 @@ namespace ZaposleniMVC.Controllers
             return View(o);
         }
 
+        
+        public IActionResult Pretraga(string pretraga)
+        {
+            Odgovor o = new Odgovor();
+            var zaposleni = _db.Zaposleni.Where((a) => a.Ime.Contains(pretraga) || a.Prezime.Contains(pretraga) || a.Adresa.Contains(pretraga));
+            if (zaposleni.Count() == 0)
+            {
+                o.Zaposleni = _db.Zaposleni.ToList();
+                o.Poruka = "Ne";
+                return View(o);
+            }
+            o.Poruka = "Da";
+            o.Zaposleni = zaposleni.ToList();
+            return PartialView(o);
+
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Search([FromForm] string pretraga)
@@ -289,10 +306,9 @@ namespace ZaposleniMVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-       
         public IActionResult Sort([FromForm]string sort)
         {
-
+            
             List<Zaposleni> zaposleni = new List<Zaposleni>();
 
             if (sort.Equals("Ime")) zaposleni = _db.Zaposleni.OrderBy((a) => a.Ime).ToList();
@@ -300,6 +316,20 @@ namespace ZaposleniMVC.Controllers
             else zaposleni = _db.Zaposleni.OrderBy((a) => a.Email).ToList() ;
             return View(zaposleni);
             
+        }
+
+        
+        
+        public IActionResult Sortiraj(string sort)
+        {
+
+            List<Zaposleni> zaposleni = new List<Zaposleni>();
+
+            if (sort.Equals("Ime")) zaposleni = _db.Zaposleni.OrderBy((a) => a.Ime).ToList();
+            else if (sort.Equals("Prezime")) zaposleni = _db.Zaposleni.OrderBy((a) => a.Prezime).ToList();
+            else zaposleni = _db.Zaposleni.OrderBy((a) => a.Email).ToList();
+            return View(zaposleni);
+
         }
 
         //------------------------------------------------------------------------------------------

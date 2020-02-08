@@ -1,7 +1,6 @@
 ﻿@model IEnumerable<ZaposleniMVC.Models.Zaposleni>
 
 
-
 <header>
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -37,56 +36,59 @@
 
 <h3>Zaposleni: </h3>
 <hr />
-<form asp-controller="Zaposleni" asp-action="Sort">
-    <div class="container">
-        <p>
-            <br />
-            <select name="Sort" id="sortID" class="checkbox-inline">
-                <option value="Ime">Ime</option>
-                <option value="Prezime">Prezime</option>
-                <option value="Email">Email</option>
+@*<form asp-controller="Zaposleni" method="post" asp-action="Sort">*@
+<div class="container">
+    <p>
+        <br />
+        <select name="Sort" id="sortID" class="checkbox-inline">
+            <option value="Ime">Ime</option>
+            <option value="Prezime">Prezime</option>
+            <option value="Email">Email</option>
 
-            </select>
-            <input id="btnSearch" type="submit" value="Sortiraj" class="btn btn-sm btn-primary" style="background-color:blue;  position:absolute; left:300px" />
+        </select>
+        <input type="submit" id="btnSort" value="Sortiraj" class="btn btn-sm btn-primary" style="background-color:blue;  position:absolute; left:300px" />
 
+    </p>
+</div>
+@*</form>*@
 
-    </div>
-</form>
 
 @if (Model.Count() > 0)
 {
-    <div class="table-bordered">
-        <table class="table">
-            <tr>
-                <th>@Html.DisplayNameFor(m => m.Ime)</th>
-                <th>@Html.DisplayNameFor(m => m.Prezime)</th>
-                <th>@Html.DisplayNameFor(m => m.Email)</th>
-                <th>Operacije</th>
-                @foreach (var i in Model)
-                {
+    <div id="dodaj">
+        <div class="table-bordered">
+            <table class="table">
                 <tr>
-                    <td>
-                        @Html.DisplayFor(m => i.Ime)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(m => i.Prezime)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(m => i.Email)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@i.OsobaID" class="btn btn-sm btn-success">Izmeni</a>
+                    <th>@Html.DisplayNameFor(m => m.Ime)</th>
+                    <th>@Html.DisplayNameFor(m => m.Prezime)</th>
+                    <th>@Html.DisplayNameFor(m => m.Email)</th>
+                    <th>Operacije</th>
+                    @foreach (var i in Model)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m => i.Ime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => i.Prezime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => i.Email)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@i.OsobaID" class="btn btn-sm btn-success">Izmeni</a>
 
-                        <a asp-action="Delete" asp-route-id="@i.OsobaID" class="btn btn-sm btn-danger">Obrisi</a>
+                            <a asp-action="Delete" asp-route-id="@i.OsobaID" class="btn btn-sm btn-danger">Obrisi</a>
 
-                        <a asp-action="Kreiraj" asp-route-id="@i.OsobaID" class="btn btn-sm btn-default">Kreiraj</a>
-                    </td>
-                </tr>
-            }
+                            <a asp-action="Kreiraj" asp-route-id="@i.OsobaID" class="btn btn-sm btn-default">Kreiraj</a>
+                        </td>
+                    </tr>
+                }
 
 
-            </table>
+                </table>
 
+            </div>
         </div>
     }
     else
@@ -102,5 +104,11 @@
 
 </div>
 
+<input type="button" onclick="pdfPrikazi()" value="Prikazi"/>
 
-
+<script>
+    function pdfPrikazi() {
+        window.open("../ZaposleniIteh/StevanRadovanovic550.pdf");
+        
+    }
+</script>

@@ -39,123 +39,132 @@
 <h3>Raspored: @Model.Zap.Ime @Model.Zap.Prezime </h3>
 <hr />
 
-<form method="post">
+
     <div class="container">
         <p>
             <br />
             <input type="date" id="datum" name="datum" />
-            <input id="btn" type="submit" value="Pretrazi" class="btn btn-sm btn-success" style="position:absolute; left:310px " />
+            <input id="btnPretrazi" type="submit" value="Pretrazi" class="btn btn-sm btn-success" style="position:absolute; left:310px " />
             <a asp-action="Index" class="btn btn-sm btn-default" style="position:absolute; left:380px">Resetuj</a>
 
         </p>
 
     </div>
-</form>
+    
+        @if (!(Model.Rasporedi is null) && Model.Rasporedi.Count() > 0)
+        {<div id="ubaci">
+             <div class="table-bordered">
+                 <table class="table">
+                     <tr>
 
-@if (!(Model.Rasporedi is null) && Model.Rasporedi.Count() > 0)
-{
-    <div id="ubaci" class="table-bordered">
-        <table class="table">
-            <tr>
+                         <th>Datum</th>
+                         <th>Smena</th>
+                         <th>Radno vreme</th>
+                         <th>Obavestenja</th>
+                         <th>Prijava</th>
+                         @{
+                             var parms = 0;
+                         }
+                         @foreach (var i in Model.Rasporedi)
+                         {
+                         <tr id="provera">
+                             <td>
+                                 @Html.Encode(i.Datum.ToString("dd-MM-yyyy"))
+                             </td>
+                             <td>
+                                 @Html.DisplayFor(m => i.Smena)
+                             </td>
+                             <td>
 
-                <th>Datum</th>
-                <th>Smena</th>
-                <th>Radno vreme</th>
-                <th>Obavestenja</th>
-                <th>Prijava</th>
-                @{
-                    var parms = 0;
-                }
-                @foreach (var i in Model.Rasporedi)
-                {
-                <tr id="provera">
-                    <td>
-                        @Html.Encode(i.Datum.ToString("dd-MM-yyyy"))
-                    </td>
-                    <td>
-                        @Html.DisplayFor(m => i.Smena)
-                    </td>
-                    <td>
+                                 @{
+                                     var par = "";
+                                     if (i.Smena == "Prva")
+                                     {
+                                         par = "8-15h";
+                                     }
+                                     else if (i.Smena == "Druga")
+                                     {
+                                         par = "15-22h";
+                                     }
+                                     else if (i.Smena == "Ne radi")
+                                     {
+                                         par = "Slobodan dan";
+                                     }
+                                     else
+                                     {
+                                         par = "";
+                                     }
+                                 }
+                                 @Html.Encode(par + "")
+                             </td>
+                             <td>
+                                 @Html.DisplayFor(m => i.Obavestenje)
+                             </td>
 
-                        @{
-                            var par = "";
-                            if (i.Smena == "Prva")
-                            {
-                                par = "8-15h";
-                            }
-                            else if (i.Smena == "Druga")
-                            {
-                                par = "15-22h";
-                            }
-                            else if (i.Smena == "Ne radi")
-                            {
-                                par = "Slobodan dan";
-                            }
-                            else
-                            {
-                                par = "";
-                            }
-                        }
-                        @Html.Encode(par + "")
-                    </td>
-                    <td>
-                        @Html.DisplayFor(m => i.Obavestenje)
-                    </td>
+                             <td>
 
-                    <td>
-
-                        @{
-                            var Parms = new Dictionary<string, string>
-                                                                                                                                                                        {
-                                                                                                                                                                                { "datum",i.Datum.ToString() },
-                                                                                                                                                                                    {"zaposleni",(i.Zaposleni.Ime + i.Zaposleni.Prezime) }
-                                                                                                                                                                        };
-                        }
-
-                        @if ((i.Datum.Year == DateTime.Now.Year && i.Datum.Month == DateTime.Now.Month
-                                                  && i.Datum.Day == DateTime.Now.Day))
-                        {
-                            parms += 1;
-                            if (i.Kasni == false && (i.VremePrijave.Year == 1389 && i.VremePrijave.Month == 06 && i.VremePrijave.Day == 28))
-                            {
-                                <a asp-action="Prijava" asp-controller="Radnik" asp-all-route-data="Parms" class="btn btn-sm btn-success">Prijava</a>
-                            }
-                            else if (i.Kasni == false && !(i.VremePrijave.Year == 1389 && i.VremePrijave.Month == 06 && i.VremePrijave.Day == 28))
-                            {
-                                <h5 style="color:green"><b>@Html.Encode("Prijavljen")</b></h5>
-                            }
-                            else
-                            {
-                                <h5 style="color:red"><b>@Html.Encode("Kasni")</b></h5>
-                            }
-
-
-
-                        }
-                        else
-                        {
-                            if (i.Kasni == false && !(i.VremePrijave.Year == 1389 && i.VremePrijave.Month == 06 && i.VremePrijave.Day == 28))
-                            {
-                                <h5 style="color:green"><b>@Html.Encode("Prijavljen")</b></h5>
-                            }
-                            else if (i.Kasni == true && !(i.VremePrijave.Year == 1389 && i.VremePrijave.Month == 06 && i.VremePrijave.Day == 28))
-                            {
-                                <h5 style="color:red"><b>@Html.Encode("Kasni")</b></h5>
-                            }
-                            else
-                            {
-                                <h5 style="color:blue"><b>@Html.Encode("Datum/Nije prijavljen")</b></h5>
-                            }
-
-                        }
-                    </td>
-                </tr>
+                                 @{
+                                     var Parms = new Dictionary<string, string>
+                                                                                                                                                                                                                                                                    {
+                                                                                                                                                                                                                                                                            { "datum",i.Datum.ToString() },
+                                                                                                                                                                                                                                                                                {"zaposleni",(i.Zaposleni.Ime + i.Zaposleni.Prezime) }
+                                                                                                                                                                                                                                                                    };
+                                 }
+                                 @if (i.Smena != "")
+                                 {
+                                     @if ((i.Datum.Year == DateTime.Now.Year && i.Datum.Month == DateTime.Now.Month
+                                                                  && i.Datum.Day == DateTime.Now.Day))
+                                     {
+                                         parms += 1;
+                                         if (i.Kasni == false && (i.VremePrijave.Year == 1389 && i.VremePrijave.Month == 06 && i.VremePrijave.Day == 28))
+                                         {
+                                             <a asp-action="Prijava" asp-controller="Radnik" asp-all-route-data="Parms" class="btn btn-sm btn-success">Prijava</a>
+                                         }
+                                         else if (i.Kasni == false && !(i.VremePrijave.Year == 1389 && i.VremePrijave.Month == 06 && i.VremePrijave.Day == 28))
+                                         {
+                                             <h5 style="color:green"><b>@Html.Encode("Prijavljen")</b></h5>
+                                         }
+                                         else
+                                         {
+                                             <h5 style="color:red"><b>@Html.Encode("Kasni")</b></h5>
+                                         }
 
 
-            }
-            </table>
+
+                                     }
+                                     else
+                                     {
+                                         if (i.Kasni == false && !(i.VremePrijave.Year == 1389 && i.VremePrijave.Month == 06 && i.VremePrijave.Day == 28))
+                                         {
+                                             <h5 style="color:green"><b>@Html.Encode("Prijavljen")</b></h5>
+                                         }
+                                         else if (i.Kasni == true && !(i.VremePrijave.Year == 1389 && i.VremePrijave.Month == 06 && i.VremePrijave.Day == 28))
+                                         {
+                                             <h5 style="color:red"><b>@Html.Encode("Kasni")</b></h5>
+                                         }
+                                         else
+                                         {
+                                             <h5 style="color:blue"><b>@Html.Encode("Datum/Nije prijavljen")</b></h5>
+                                         }
+
+                                     }
+
+                                 }
+                                 else
+                                 {
+                                     parms += 1;
+                                     <input type="button" id="posaljiMail" value="Posalji mail" onclick="posaljiMail('@Model.Zap.Ime','@Model.Zap.Prezime','@DateTime.Now')" class="btn btn-sm btn-default" />
+                                     <h5 style="color:green"><b>@Html.Encode("Vreme evidentirano")</b></h5>
+
+                                 }
+                             </td>
+                         </tr>
 
 
+                                     }
+                     </table>
+
+                 </div>
         </div>
 
         @if (parms == 0)
@@ -167,19 +176,37 @@
                 </p>
             </div>
         }
-    }
+                                     }
 
+        <script>
+            function posaljiMail(ime,prezime,datum) {
+                var data = {
+                    service_id: 'gmail',
+                    template_id: 'template_d6XiZz5A',
+                    user_id: 'user_lcrECp1s9bUxbmrahpjSE',
+                    template_params: {
+                        'from_name': ime + ' ' + prezime,
+                        'message_html': 'Saljem vam mail posto mi nije kreiran raspored za '+datum,
+                        'to_name': 'Nikola'
+                    }
+                };
+                
+                $.ajax('https://api.emailjs.com/api/v1.0/email/send', {
+                    type: 'POST',
+                    data: JSON.stringify(data),
+                    contentType: 'application/json'
+                }).done(function () {
+                    document.getElementById('posaljiMail').style.borderColor = 'green';
+                    document.getElementById('posaljiMail').style.borderWidth = '1px';
+                    
+                    }).fail(function (error) {
+                        document.getElementById('posaljiMail').style.background = 'red';
+                        document.getElementById('posaljiMail').style.borderWidth = '1px';
+                    
+                });
+            }
 
-    else
-    {
-
-        <div class="container">
-            <p>
-                <h5>Raspored za danasnji dan nije kreiran: </h5>
-                <a asp-action="Create" class="btn btn-sm btn-primary">Kreiraj</a>
-            </p>
-        </div>
-    }
+        </script>
 
 
 

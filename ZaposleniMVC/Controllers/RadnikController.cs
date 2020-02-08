@@ -20,7 +20,7 @@ namespace ZaposleniMVC.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            Odgovor o = new Odgovor();
+           Odgovor o = new Odgovor();
             if(Sesija.Instance.Zaposlen is null)
             {
                 return NotFound();
@@ -94,12 +94,15 @@ namespace ZaposleniMVC.Controllers
             var raspored = _db.Raspored.Include((r) => r.Zaposleni).Where((r) => r.Datum.Date == da && r.Zaposleni.OsobaID == Sesija.Instance.Zaposlen.OsobaID);
             Odgovor o = new Odgovor();
             o.Rasporedi = raspored.ToList();
-            return PartialView(o);
+            
+            return PartialView("Vrati",o);
         }
 
         private bool ProveraKasni(Raspored r)
         {
             if(r.Smena == "Prva")
+
+
             {
                 if(r.VremePrijave.Hour <= 8)
                 {

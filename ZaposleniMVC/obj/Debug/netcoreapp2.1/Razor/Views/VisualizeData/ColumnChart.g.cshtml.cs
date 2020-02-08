@@ -54,7 +54,7 @@ using ZaposleniMVC.Models;
             WriteLiteral("<!DOCTYPE html>\r\n<html lang=\"en\">\r\n");
             EndContext();
             BeginContext(35, 4677, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("head", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "240ca538587e414ab20a340201f1be8f", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("head", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1eafde842983485a8b0c3ddb0f902630", async() => {
                 BeginContext(41, 526, true);
                 WriteLiteral(@"
     <title>Result Visualization</title>
@@ -230,7 +230,7 @@ using ZaposleniMVC.Models;
             WriteLiteral("\r\n");
             EndContext();
             BeginContext(4714, 362, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9b1b1ea62d5a4acf8f8c5d74f3d94fc2", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c6ac9d798ac941088613d128d1c75674", async() => {
                 BeginContext(4720, 349, true);
                 WriteLiteral(@"
     <div class=""jumbotron"">

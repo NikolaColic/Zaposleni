@@ -48,3 +48,5 @@ C:\Users\PC\source\repos\ZaposleniIteh\ZaposleniMVC\obj\Debug\netcoreapp2.1\Razo
 C:\Users\PC\source\repos\ZaposleniIteh\ZaposleniMVC\obj\Debug\netcoreapp2.1\Razor\Views\Radnik\Search.g.cshtml.cs
 C:\Users\PC\source\repos\ZaposleniIteh\ZaposleniMVC\obj\Debug\netcoreapp2.1\Razor\Views\Radnik\Vrati.g.cshtml.cs
 C:\Users\PC\source\repos\ZaposleniIteh\ZaposleniMVC\obj\Debug\netcoreapp2.1\Razor\Views\VisualizeData\ColumnChart.g.cshtml.cs
+C:\Users\PC\source\repos\ZaposleniIteh\ZaposleniMVC\obj\Debug\netcoreapp2.1\Razor\Views\Zaposleni\Pretraga.g.cshtml.cs
+C:\Users\PC\source\repos\ZaposleniIteh\ZaposleniMVC\obj\Debug\netcoreapp2.1\Razor\Views\Zaposleni\Sortiraj.g.cshtml.cs
