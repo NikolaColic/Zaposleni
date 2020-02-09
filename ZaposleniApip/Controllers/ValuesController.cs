@@ -13,6 +13,8 @@ namespace ZaposleniApip.Controllers
     public class ValuesController : ControllerBase
     {
 
+
+
         private readonly ApplicationDbContext _db;
 
 
@@ -20,6 +22,8 @@ namespace ZaposleniApip.Controllers
         {
             _db = db;
         }
+
+
 
         // GET api/values
         [HttpGet]
@@ -29,6 +33,9 @@ namespace ZaposleniApip.Controllers
             return zaposleni;
         }
        
+
+
+
 
         // GET api/values/5
         [HttpGet("{id}")]

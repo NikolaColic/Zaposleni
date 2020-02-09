@@ -14,6 +14,8 @@ namespace ZaposleniApip.Controllers
     public class RasporedController : ControllerBase
     {
 
+
+
         private readonly ApplicationDbContext _db;
 
 
@@ -21,6 +23,9 @@ namespace ZaposleniApip.Controllers
         {
             _db = db;
         }
+
+
+
 
         // GET api/values
         [HttpGet]
